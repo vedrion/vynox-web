@@ -55,7 +55,7 @@ export async function submitCareerApplication(_previous: CareerApplicationState,
 
   try {
     const resend = new Resend(env("RESEND_API_KEY"));
-    const from = env("CONTACT_FROM_EMAIL");
+    const from = env("CAREERS_FROM_EMAIL");
     const to = process.env.CAREERS_TO_EMAIL || careersContent.email;
     const message = notificationEmail(parsed.data);
     const sent = await resend.emails.send({ from, to, replyTo: parsed.data.email, ...message });
