@@ -1,0 +1,700 @@
+@import "tailwindcss";
+
+@theme {
+  /* colors — docs/design-analysis.md §1.2 */
+  --color-bg: #0b0a0b;
+  --color-primary: #8a2be1;
+  --color-primary-grad-end: #5c03ae;
+  --color-primary-border: #5700a7;
+  --color-white: #f5f6fb;
+  --color-muted: #a09c9c;
+  --color-body-muted: #979494;
+  --color-hero-heading: #cac8cd;
+  /* About hero headline (`1:1233`) — cooler/brighter than --color-muted */
+  --color-card-border: #2c2c2c;
+  --color-card-border-soft: #242424;
+  --color-card-fill: rgba(0, 0, 0, 0.14);
+  --color-card-solid: #0a0a0a;
+  --color-media-placeholder: #141518;
+  --color-glow: #7310ce;
+  --color-glow-primary-rgb: 138 43 225;
+  /* == --color-primary channels, for rgba() alpha composition */
+  --color-glow-secondary-rgb: 115 16 206;
+  /* == --color-glow channels, for rgba() alpha composition */
+  --color-stat-label: #dfdfdf;
+  --color-navbar-border: rgba(51, 51, 51, 0.1);
+  /* dim label sitting next to a white number, e.g. "2M+ Followers" on creator cards (`1:834`) */
+  --color-label-dim: #585656;
+  --color-carousel-divider: rgba(176, 99, 255, 0.37);
+  /* testimonials (`1:1043`) */
+  --color-hairline: #5e5e5e;
+  /* testimonial card + stat-pill stroke */
+  --color-quote: #b7b4b4;
+  --color-author: #f1f0ec;
+  --color-stat-caption: #73726e;
+  --color-subtext: #afafaf;
+  --color-rule: #515151;
+  /* stat-pill vertical rules */
+  /* case studies (`1:989`) */
+  --color-primary-light: #b063ff;
+  /* brand label under a case-study title */
+  --color-btn-quiet-label: #aeaeab;
+  /* outline-pill label */
+  /* services (`1:777`) */
+  --color-stat-rule: #393939;
+  /* hairline between a stat value and its label */
+  --color-quiet: #777777;
+  /* "View all" ghost-button label */
+
+  /* legal / careers / case-study surfaces */
+  --color-bg-deep: #08040d;
+  /* darker page ground than --color-bg, used by the legal + careers shells */
+  --color-accent-soft: #a880ff;
+  /* small purple UI accents: badge icons, chevrons, inline link hovers */
+  --color-badge-label: #cdaaff;
+  /* uppercase eyebrow label inside a bordered pill */
+  --color-body-secondary: #acacac;
+  /* dimmer body copy nested under a subheading */
+  --color-glow-bright: #8b1aff;
+  /* SVG connector-gradient stops in the service process diagram */
+
+  /* fonts — built on the `--font-*-raw` vars next/font sets on <html> (§1.3).
+     The two names must differ, or these declarations are self-referential and silently drop. */
+  --font-space: var(--font-space-raw), system-ui, sans-serif;
+  --font-vastago: var(--font-vastago-raw), var(--font-space-raw), system-ui, sans-serif;
+  --font-mary: var(--font-mary-raw), var(--font-caveat-raw), cursive;
+  --font-caveat: var(--font-caveat-raw), cursive;
+  --font-inter: var(--font-inter-raw), system-ui, sans-serif;
+  --font-montaga: var(--font-montaga-raw), Georgia, serif;
+
+  /* radii — §1.5 */
+  --radius-btn: 16px;
+  --radius-card: 20px;
+  --radius-badge: 18px;
+  --radius-pill: 181px;
+
+  /* type scale — §1.3 */
+  --text-display: 122.78px;
+  --text-wordmark: 70.4px;
+  --text-h1: clamp(32px, calc(32px + 24 * ((100vw - 345px) / 1095)), 56px);
+  --text-brand: 36.84px;
+  --text-lg: 24px;
+  --text-md: 20px;
+  --text-base: 16px;
+
+  /* section rhythm — inferred from existing section paddings, pending Figma re-verify.
+     Interpolated 345→1440 so the desktop rhythm does not land verbatim on a phone. */
+  --spacing-section-sm: clamp(24px, calc(24px + 12 * ((100vw - 345px) / 1095)), 36px);
+  --spacing-section-md: clamp(48px, calc(48px + 40 * ((100vw - 345px) / 1095)), 88px);
+  --spacing-section-lg: clamp(52px, calc(52px + 44 * ((100vw - 345px) / 1095)), 96px);
+  --spacing-section-hero-y: clamp(72px, calc(72px + 68 * ((100vw - 345px) / 1095)), 140px);
+}
+
+/* Registered so the browser interpolates the angle smoothly frame-to-frame instead of
+   snapping between discrete gradient values (the default for an unregistered custom property). */
+@property --border-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes marquee-up {
+  from {
+    transform: translateY(0%);
+  }
+
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes marquee-down {
+  from {
+    transform: translateY(-50%);
+  }
+
+  to {
+    transform: translateY(0%);
+  }
+}
+
+@keyframes marquee-left {
+  from {
+    transform: translateX(0%);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Brand-pill arc motion (`brand-marquee-row.tsx`) — pills travel along the same circular
+   curve as the Brands-section arc via `offset-path`, rather than a flat `translateX` row,
+   so they visibly follow the arc instead of cutting a straight line across it. */
+@keyframes marquee-orbit {
+  from {
+    offset-distance: 0%;
+  }
+
+  to {
+    offset-distance: 100%;
+  }
+}
+
+@keyframes marquee-orbit-reverse {
+  from {
+    offset-distance: 100%;
+  }
+
+  to {
+    offset-distance: 0%;
+  }
+}
+
+@keyframes rotate-border-angle {
+  to {
+    --border-angle: 360deg;
+  }
+}
+
+@keyframes services-tab-fade {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* primary gradient + glow helpers used by Button/CTA */
+@layer components {
+
+  /* Hero reel marquee (`1:709`) — CSS keyframe animation rather than a JS-driven one so
+     `animation-play-state: paused` freezes the loop at its current position on hover; a
+     motion/react `animate` prop toggled to `undefined` loses its progress and snaps back. */
+  .marquee-track {
+    animation-duration: 28s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+
+  .marquee-track-up {
+    animation-name: marquee-up;
+  }
+
+  .marquee-track-down {
+    animation-name: marquee-down;
+  }
+
+  .marquee-track-left {
+    animation-name: marquee-left;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none;
+    }
+  }
+
+  .gradient-primary {
+    background: linear-gradient(to bottom, var(--color-primary) 4.84%, var(--color-primary-grad-end));
+  }
+
+  .text-gradient-stat {
+    background: linear-gradient(180deg, #b063ff, var(--color-primary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* About hero headline (`1:1233`) — left-dark/right-bright, matching the crescent bands'
+     own light direction rather than the purple `.text-gradient-stat` (a different, unrelated
+     pattern used for stat numbers elsewhere). */
+  .text-gradient-hero-heading {
+    background: linear-gradient(to right, var(--color-muted) 0%, var(--color-hero-heading) 60%, var(--color-white) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* About hero ambient wash — the crescent PNG (hero-glow.tsx) only lights its own cropped
+     rectangle; this spreads that same left-dark/right-bright light across the full section so
+     it reads as ambient glow, not a hard-edged image box. Sits behind the crescent bands. */
+  .about-hero-ambient {
+    background: linear-gradient(to right,
+        transparent 0%,
+        rgba(138, 43, 225, 0.14) 45%,
+        rgba(138, 43, 225, 0.4) 75%,
+        rgba(176, 99, 255, 0.55) 100%);
+  }
+
+  .glow-purple {
+    box-shadow: 0 8px 24px rgba(115, 16, 206, 0.34);
+  }
+
+  /* Creator card body — Figma `1:884` fill: a near-transparent dark wash, not a solid panel. */
+  .creator-card-fill {
+    background: linear-gradient(180deg, rgba(19, 20, 23, 0.1) 0%, rgba(26, 26, 26, 0.1) 100%);
+  }
+
+  /* Glass tag chip (`1:892`): gradient fill + gradient 1px-ish stroke. Border width is passed in
+     by the card so the three carousel sizes keep their exact Figma stroke weights. */
+  .chip-glass {
+    background:
+      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0%, rgba(153, 153, 153, 0.1) 100%) padding-box,
+      linear-gradient(90deg, rgba(0, 0, 0, 0.05) 0%, rgba(102, 102, 102, 0.15) 100%) border-box;
+    border: var(--chip-border-width, 0.68px) solid transparent;
+  }
+
+  /* "All Case Studies" (`1:993`) — no fill, just the 0.5px gradient stroke. */
+  .pill-outline {
+    background:
+      linear-gradient(transparent, transparent) padding-box,
+      linear-gradient(225deg, #5700a7 0%, #3a0868 100%) border-box;
+    border: 0.5px solid transparent;
+  }
+
+  /* Brands-section arc divider (`brands.tsx`) — a gradient border (purple → blue → purple)
+     instead of a flat color, using the same border-box/padding-box double-background trick
+     as `.chip-glass`/`.pill-outline`. `--arc-glow-opacity` / `--arc-inset-opacity` are set
+     per-arc via inline style so the two arcs keep their current 0.85/0.5 vs 0.7/0.4 strengths. */
+  .arc-glow {
+    background:
+      transparent padding-box,
+      linear-gradient(90deg,
+        rgba(90, 60, 255, 0) 0%,
+        rgba(190, 90, 255, var(--arc-glow-opacity, 0.85)) 30%,
+        rgba(120, 160, 255, var(--arc-glow-opacity, 0.85)) 70%,
+        rgba(90, 60, 255, 0) 100%) border-box;
+    border: 2.5px solid transparent;
+    /* Two blur radii (tight core + a modest soft fringe) read as a defined glowing line —
+       a wide (70px+) blur on a border this long smears into a full-bleed wash instead. */
+    box-shadow:
+      0 0 24px rgba(190, 90, 255, calc(var(--arc-glow-opacity, 0.85) * 1.25)),
+      0 0 45px rgba(138, 43, 225, calc(var(--arc-glow-opacity, 0.85) * 0.85)),
+      inset 0 0 24px rgba(138, 43, 225, calc(var(--arc-inset-opacity, 0.5) * 1.25));
+
+    /* Fades the entire arc and its glows at the sides */
+    -webkit-mask-image: linear-gradient(90deg,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0) 30%,
+        rgba(0, 0, 0, 1) 47%,
+        rgba(0, 0, 0, 1) 53%,
+        rgba(0, 0, 0, 0) 70%,
+        rgba(0, 0, 0, 0) 100%);
+    mask-image: linear-gradient(90deg,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0) 30%,
+        rgba(0, 0, 0, 1) 47%,
+        rgba(0, 0, 0, 1) 53%,
+        rgba(0, 0, 0, 0) 70%,
+        rgba(0, 0, 0, 0) 100%);
+  }
+
+  @media (max-width: 640px) {
+    .arc-glow {
+      box-shadow:
+        0 0 40px rgba(190, 90, 255, calc(var(--arc-glow-opacity, 0.85) * 1.1)),
+        0 0 90px rgba(138, 43, 225, calc(var(--arc-glow-opacity, 0.85) * 0.9)),
+        inset 0 0 40px rgba(138, 43, 225, calc(var(--arc-inset-opacity, 0.5) * 1.1));
+    }
+  }
+
+  /* Brand pill (`brand-marquee-row.tsx`) — travels the same circular curve as `.arc-glow`
+     via `offset-path`; `offset-rotate: 0deg` keeps the pill's text upright rather than
+     tilting to the path's tangent. Always scrolling — no hover-pause, unlike the hero reel
+     marquee. */
+  .brand-pill {
+    position: absolute;
+    /* `offset-path` is set inline per-pill (see brand-marquee-row.tsx) — it's computed from
+       the row's actual measured width, which a static CSS value can't express. */
+    offset-rotate: auto;
+    offset-anchor: 50% calc(100% + 16px);
+    animation-duration: 28s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+
+  .brand-pill-left {
+    animation-name: marquee-orbit;
+  }
+
+  .brand-pill-right {
+    animation-name: marquee-orbit-reverse;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .brand-pill {
+      animation: none;
+    }
+  }
+
+  /* How it Works media-card border (`how-it-works.tsx`) — a slow-rotating conic-gradient
+     ring instead of a fixed-angle linear one, so the magenta/purple sweep continuously
+     travels around the card rather than sitting at one static angle. Combined with the
+     existing padding-box trick (this div's own background painted at full size, then an
+     inner div slightly inset with a solid fill exposes only a thin ring of it). */
+  .rotating-border {
+    --border-angle: 0deg;
+    background: conic-gradient(from var(--border-angle), #a94dff 0%, #6b1fb0 35%, #e451ff 70%, #a94dff 100%);
+    animation: rotate-border-angle 6s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rotating-border {
+      animation: none;
+    }
+  }
+
+  /* Services tab switch (`services.tsx`) — the text panel and purple card key-remount on
+     every active-tab change, replaying this fade/slide-in so the swap reads as an animated
+     transition rather than an instant content swap. The card is delayed slightly so it
+     settles just after the text. */
+  .services-tab-fade {
+    animation: services-tab-fade 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .services-card-fade {
+    animation: services-tab-fade 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.08s backwards;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+
+    .services-tab-fade,
+    .services-card-fade {
+      animation: none;
+    }
+  }
+
+  /* Stats scroll-scrub (`stats.tsx`) — each stat's opacity is driven inline (0 → 1 as its
+     count-up begins), this class just smooths that inline change into a transition instead
+     of an instant snap. */
+  .stat-fade {
+    transition: opacity 0.3s ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .stat-fade {
+      transition: none;
+    }
+  }
+
+  /* "What sets us apart" horizon — a planet limb, not a wash. Measured off
+     `docs/design-reference/s_setsapart.png`: the rim is a circle of radius 636px whose apex sits
+     91px above the panel's bottom edge, so the element below is exactly 2R square and the colour
+     stops are radii expressed as a percentage of R.
+
+     Ramp read off a vertical slice through the apex: near-black outside the rim, a white core
+     ~26px inside it, decaying to a flat violet body ~84px in. The `to right` layer multiplies over
+     it to reproduce the reference's violet left limb / blue right limb, and the mask reproduces the
+     rim fading out toward the limbs (peak luminance 252 at the apex, ~108 at ±300px). */
+  .sets-apart-horizon {
+    background-image:
+      linear-gradient(to right,
+        #a884f5 29.1%,
+        #e3baff 33%,
+        #f5e6ff 36.9%,
+        #fcf2ff 41%,
+        #ffffff 50%,
+        #f3f5ff 64.7%,
+        #e9f0ff 66.7%,
+        #bdccff 70.7%),
+      radial-gradient(circle closest-side at 50% 50%,
+        #8e55ff 0 86.8%,
+        #a260ff 89.8%,
+        #bb8bfe 91.3%,
+        #c995fd 92.8%,
+        #e2beff 94.3%,
+        #fcf5ff 95.8%,
+        #dcd7f5 97.4%,
+        #ac9de2 98.9%,
+        rgba(147, 130, 212, 0) 100%);
+    background-blend-mode: multiply;
+    box-shadow: 0 0 clamp(45px, calc(45px + 45 * ((100vw - 375px) / 1065)), 90px) clamp(6px, calc(6px + 6 * ((100vw - 375px) / 1065)), 12px) rgba(168, 110, 255, 0.3);
+    -webkit-mask-image: radial-gradient(ellipse 55% 22% at 50% 0%,
+        rgba(0, 0, 0, 1) 0%,
+        rgba(0, 0, 0, 0.98) 18%,
+        rgba(0, 0, 0, 0.94) 34%,
+        rgba(0, 0, 0, 0.85) 43%,
+        rgba(0, 0, 0, 0.55) 60%,
+        rgba(0, 0, 0, 0.12) 80%,
+        rgba(0, 0, 0, 0) 100%);
+    mask-image: radial-gradient(ellipse 55% 22% at 50% 0%,
+        rgba(0, 0, 0, 1) 0%,
+        rgba(0, 0, 0, 0.98) 18%,
+        rgba(0, 0, 0, 0.94) 34%,
+        rgba(0, 0, 0, 0.85) 43%,
+        rgba(0, 0, 0, 0.55) 60%,
+        rgba(0, 0, 0, 0.12) 80%,
+        rgba(0, 0, 0, 0) 100%);
+  }
+
+  .navbar-glass {
+    background: linear-gradient(90deg, rgba(74, 74, 74, 0.05), rgba(112, 112, 113, 0.1));
+    box-shadow: inset 0 1px 6.5px rgba(66, 66, 66, 0.25);
+  }
+
+  /* Mobile nav dropdown (navbar.tsx) — "liquid glass": a frosted, saturated blur over the page
+     behind it (not a flat dark fill like the old panel), so content scrolling underneath still
+     reads through as soft color. The sheen/inset-highlight layers that sell the glass effect are
+     separate absolutely-positioned divs in the component (stacking under the menu content but
+     over this base), since a single element can't both blur its backdrop and carry an inset
+     highlight without the highlight also getting blurred. */
+  .liquid-glass-panel {
+    background: rgba(20, 16, 24, 0.98);
+    box-shadow:
+      0 20px 45px rgba(0, 0, 0, 0.55),
+      0 0 30px rgba(138, 43, 225, 0.18);
+  }
+
+  .navbar-shell {
+    --navbar-height: 82px;
+    --navbar-inline-padding: 61px;
+    --navbar-logo-width: 33px;
+    --navbar-links-width: 377px;
+
+    height: var(--navbar-height);
+    width: min(1100px, calc(100vw - 32px));
+  }
+
+  .navbar-inner {
+    padding: 16px var(--navbar-inline-padding);
+  }
+
+  .navbar-logo {
+    width: var(--navbar-logo-width);
+    height: auto;
+  }
+
+  .navbar-links {
+    width: var(--navbar-links-width);
+  }
+
+  @media (max-width: 1100px) {
+    .navbar-shell {
+      --navbar-inline-padding: clamp(28px, 4.5vw, 48px);
+      --navbar-links-width: clamp(320px, 38vw, 377px);
+    }
+  }
+
+  @media (max-width: 820px) {
+    .navbar-shell {
+      --navbar-height: 72px;
+      --navbar-inline-padding: 28px;
+      --navbar-logo-width: 29px;
+    }
+
+    /* .navbar-links / .navbar-contact-inline visibility, and the burger button's, are handled
+       via Tailwind's `md:flex` / `md:hidden` on those elements directly (navbar.tsx) — a plain
+       `display: none` here loses to the `flex` utility already on those elements, since
+       Tailwind's utilities layer always outranks this `@layer components` block regardless of
+       media-query match. That structural swap intentionally happens at `md` (768px), not this
+       820px tier — this block only shrinks the pill's chrome (padding/logo size). */
+  }
+
+  @media (max-width: 520px) {
+    .navbar-shell {
+      --navbar-height: 64px;
+      --navbar-inline-padding: 20px;
+      --navbar-logo-width: 26px;
+      width: calc(100vw - 24px);
+    }
+
+    .navbar-inner {
+      padding-block: 12px;
+    }
+  }
+
+  .site-footer {
+    --footer-content-width: 1200px;
+    --footer-x: clamp(24px, 8.125vw, 117px);
+    --footer-brand-logo-width: 52px;
+    --footer-brand-logo-height: 47px;
+    --footer-brand-title: 36.84px;
+    --footer-wordmark-size: 70.4px;
+    --footer-cta-title: 56px;
+    --footer-script-size: 122.78px;
+
+    background: var(--color-bg);
+    overflow: hidden;
+  }
+
+  .site-footer-content {
+    width: min(var(--footer-content-width), calc(100vw - (var(--footer-x) * 2)));
+  }
+
+  .site-footer-divider {
+    border-color: rgba(245, 246, 251, 0.12);
+  }
+
+  .site-footer-wordmark {
+    font-size: var(--footer-wordmark-size);
+    line-height: 1;
+    background: linear-gradient(180deg, rgba(245, 246, 251, 0.5) 12%, rgba(245, 246, 251, 0) 76%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .site-footer-wordmark-accent {
+    background: linear-gradient(180deg, rgba(138, 43, 225, 0.65) 12%, rgba(138, 43, 225, 0) 76%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .site-footer-cta-title {
+    font-size: var(--footer-cta-title);
+  }
+
+  .site-footer-cta-script {
+    font-size: var(--footer-script-size);
+  }
+
+  .site-footer-talk {
+    transform: rotate(18.46deg);
+    box-shadow: 0 5px 2px -2px rgba(115, 16, 206, 0.34), 0 0 34px rgba(138, 43, 225, 0.58);
+  }
+
+  @media (max-width: 1100px) {
+    .site-footer {
+      --footer-x: clamp(28px, 6vw, 72px);
+      --footer-brand-title: clamp(30px, 3vw, 36.84px);
+      --footer-wordmark-size: clamp(46px, 6vw, 70.4px);
+      --footer-cta-title: clamp(44px, 5vw, 56px);
+      --footer-script-size: clamp(82px, 10vw, 122.78px);
+    }
+  }
+
+  @media (max-width: 820px) {
+    .site-footer {
+      --footer-brand-logo-width: 44px;
+      --footer-brand-logo-height: 40px;
+      --footer-wordmark-size: clamp(38px, 8vw, 58px);
+    }
+
+    /* .site-footer-grid's column count is handled via Tailwind's `sm:`/`md:` variants directly
+       (site-footer.tsx) — same layer-precedence reason as .navbar-links above. */
+    .site-footer-bottom {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 18px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .site-footer {
+      --footer-x: 22px;
+      --footer-brand-logo-width: 38px;
+      --footer-brand-logo-height: 35px;
+      --footer-brand-title: 28px;
+      --footer-wordmark-size: 34px;
+      --footer-cta-title: 38px;
+      --footer-script-size: 72px;
+    }
+
+    .site-footer-cta-copy {
+      width: min(100%, 360px);
+    }
+
+    .site-footer-talk {
+      right: 8px;
+      top: 24px;
+      transform: rotate(12deg) scale(0.85);
+    }
+  }
+
+  .we-shape-section {
+    --we-shape-title: 50px;
+    --we-shape-script: 108px;
+    --we-shape-body: 21px;
+    --we-shape-stat: 50px;
+
+    min-height: 787px;
+  }
+
+  .we-shape-content {
+    width: min(1206px, calc(100vw - 48px));
+  }
+
+  .we-shape-title {
+    font-size: var(--we-shape-title);
+    line-height: 1.27;
+  }
+
+  .we-shape-script {
+    font-size: var(--we-shape-script);
+    line-height: 0.78;
+  }
+
+  .we-shape-body {
+    font-size: var(--we-shape-body);
+  }
+
+  .we-shape-stat-number {
+    font-size: var(--we-shape-stat);
+  }
+
+  .we-shape-badge {
+    box-shadow: 0 1px 2px var(--color-glow);
+  }
+
+  .we-shape-stat-line {
+    box-shadow: 0 0 14px rgba(138, 43, 225, 0.9);
+  }
+
+  @media (max-width: 1180px) {
+    .we-shape-section {
+      --we-shape-title: clamp(40px, 4.4vw, 50px);
+      --we-shape-script: clamp(76px, 9vw, 108px);
+      --we-shape-body: clamp(17px, 1.8vw, 21px);
+    }
+  }
+
+  @media (max-width: 1279px) {
+    .we-shape-section {
+      min-height: auto;
+    }
+
+    .we-shape-content {
+      padding-block: 96px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .we-shape-section {
+      --we-shape-title: 38px;
+      --we-shape-script: 64px;
+      --we-shape-body: 17px;
+      --we-shape-stat: 44px;
+    }
+
+    .we-shape-content {
+      width: calc(100vw - 36px);
+      padding-block: 76px;
+    }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--color-primary);
+  color: var(--color-white);
+}

@@ -1,0 +1,210 @@
+export type CareerStatus = "open" | "filled";
+
+export interface CareerRole {
+  id: string;
+  title: string;
+  department: string;
+  employmentType: string;
+  status: CareerStatus;
+  workMode: string;
+  regionFlag: string;
+  regionLabel: string;
+  summary: string;
+  responsibilities: string[];
+  qualifications: string[];
+  jobPosting?: { datePosted: string; applicantCountry: string };
+}
+
+export const careerDisplayOptions = {
+  showCountryFlags: false,
+} as const;
+
+export const careerRoles: CareerRole[] = [
+  {
+    id: "research-analyst",
+    title: "Research Analyst",
+    department: "Creator & Audience Research",
+    employmentType: "Full-time",
+    status: "open",
+    workMode: "Remote",
+    regionFlag: "🇮🇳",
+    regionLabel: "India",
+    summary: "Find the right creators, audiences, and insights to make campaigns sharper and more effective.",
+    responsibilities: [
+      "Research creators across social platforms and assess audience fit, content quality, and brand alignment.",
+      "Build and maintain accurate creator lists, campaign research, and competitor snapshots.",
+      "Turn campaign briefs and performance data into clear, useful recommendations for the team.",
+    ],
+    qualifications: [
+      "Strong research, analytical, and written communication skills.",
+      "Comfortable working with spreadsheets and social media platforms.",
+      "Curiosity about creators, online communities, and digital culture.",
+    ],
+    jobPosting: { datePosted: "2026-09-30", applicantCountry: "India" },
+  },
+  {
+    id: "creator-manager",
+    title: "Creator Manager",
+    department: "Creator Partnerships",
+    employmentType: "Full-time",
+    status: "open",
+    workMode: "Remote",
+    regionFlag: "🇮🇳",
+    regionLabel: "India",
+    summary: "Build trusted creator relationships and help partnerships run smoothly from first conversation to final delivery.",
+    responsibilities: [
+      "Develop and maintain relationships with creators and their representatives.",
+      "Coordinate creator outreach, campaign briefs, timelines, deliverables, and feedback.",
+      "Keep communication and campaign records organized, clear, and on schedule.",
+    ],
+    qualifications: [
+      "Excellent relationship-building and written communication skills.",
+      "Organized, dependable, and comfortable managing multiple conversations at once.",
+      "Interest in the creator economy, influencer marketing, and social platforms.",
+    ],
+    jobPosting: { datePosted: "2026-09-30", applicantCountry: "India" },
+  },
+  {
+    id: "influencer-campaign-manager",
+    title: "Influencer Campaign Manager",
+    department: "Campaigns",
+    employmentType: "Full-time",
+    status: "filled",
+    workMode: "Remote",
+    regionFlag: "🇮🇳",
+    regionLabel: "India",
+    summary: "Own campaign delivery across creator partnerships, timelines, and reporting.",
+    responsibilities: ["Coordinate campaign plans and deliverables.", "Track execution and share performance updates."],
+    qualifications: ["Project coordination experience.", "Clear communication and attention to detail."],
+  },
+  {
+    id: "talent-manager",
+    title: "Talent Manager",
+    department: "Creator Partnerships",
+    employmentType: "Full-time",
+    status: "filled",
+    workMode: "Remote",
+    regionFlag: "🇮🇳",
+    regionLabel: "India",
+    summary: "Support creator growth, representation, and long-term brand opportunities.",
+    responsibilities: ["Build creator relationships and growth plans.", "Coordinate negotiations and partnership opportunities."],
+    qualifications: ["Relationship management experience.", "Understanding of creator platforms and brand deals."],
+  },
+  {
+    id: "social-media-strategist",
+    title: "Social Media Strategist",
+    department: "Strategy & Content",
+    employmentType: "Full-time",
+    status: "filled",
+    workMode: "Remote",
+    regionFlag: "🇮🇳",
+    regionLabel: "India",
+    summary: "Shape platform-aware social strategies for brands and creators.",
+    responsibilities: ["Develop channel and content recommendations.", "Use audience and performance insights to improve plans."],
+    qualifications: ["Social strategy or content planning experience.", "Strong platform knowledge and writing skills."],
+  },
+  {
+    id: "brand-partnerships-executive",
+    title: "Brand Partnerships Executive",
+    department: "Business Development",
+    employmentType: "Full-time",
+    status: "filled",
+    workMode: "Remote",
+    regionFlag: "🇮🇳",
+    regionLabel: "India",
+    summary: "Build brand relationships and connect business needs with creator-led campaigns.",
+    responsibilities: ["Research prospective partners and prepare outreach.", "Support proposals, client communication, and account growth."],
+    qualifications: ["Confident professional communication.", "Interest in partnerships, sales, and digital marketing."],
+  },
+  {
+    id: "creative-producer",
+    title: "Creative Producer",
+    department: "Creative & Production",
+    employmentType: "Full-time",
+    status: "filled",
+    workMode: "Remote",
+    regionFlag: "🇮🇳",
+    regionLabel: "India",
+    summary: "Turn campaign objectives into creator-friendly concepts and content direction.",
+    responsibilities: ["Develop creative concepts and briefs.", "Coordinate feedback and keep content aligned with campaign goals."],
+    qualifications: ["Creative development or production experience.", "Strong storytelling and feedback skills."],
+  },
+  {
+    id: "account-manager",
+    title: "Account Manager",
+    department: "Client Services",
+    employmentType: "Full-time",
+    status: "filled",
+    workMode: "Remote",
+    regionFlag: "🇮🇳",
+    regionLabel: "India",
+    summary: "Be a reliable point of contact for clients and help teams deliver excellent work.",
+    responsibilities: ["Manage client communication and expectations.", "Coordinate internal teams, schedules, and account updates."],
+    qualifications: ["Client-facing or account coordination experience.", "Clear communication and strong organization."],
+  },
+  {
+    id: "operations-coordinator",
+    title: "Operations & Project Coordinator",
+    department: "Operations",
+    employmentType: "Full-time",
+    status: "filled",
+    workMode: "Remote",
+    regionFlag: "🇮🇳",
+    regionLabel: "India",
+    summary: "Keep agency workflows, project details, and cross-team handoffs running smoothly.",
+    responsibilities: ["Maintain project schedules and operational records.", "Identify blockers and help teams improve repeatable workflows."],
+    qualifications: ["Strong organization and follow-through.", "Comfortable with digital project management tools."],
+  },
+];
+
+export const careersContent = {
+  eyebrow: "Careers at Vynox Media",
+  heroBackdrop: "Your next chapter",
+  title: "Make your mark",
+  brand: "with Vynox.",
+  intro: "Build a career shaping how brands and creators work together.",
+  rolesHeading: "Find your next role",
+  sectionEyebrow: "Explore opportunities",
+  filterLabel: "Filter positions",
+  rolesIntro: "Our team works remotely across India. Open a role to learn more about the work and what we're looking for.",
+  filters: { all: "All roles", open: "Open positions", filled: "Filled positions" },
+  status: { open: "Open", filled: "Filled" },
+  remote: "Remote",
+  fullDetails: "View role details",
+  apply: "Apply for this role",
+  filledNote: "This position is currently filled.",
+  empty: "There are no positions in this category right now.",
+  responsibilities: "What you'll do",
+  qualifications: "What we're looking for",
+  applicationHeading: "Apply to join the team",
+  applicationEyebrow: "Take the next step",
+  contactPrompt: "Questions about careers? Email",
+  email: "hello@vynoxmedia.com",
+  form: {
+    title: "Your application",
+    fields: {
+      role: { label: "Position", placeholder: "Choose an open position" },
+      fullName: { label: "Full name", placeholder: "Your full name" },
+      email: { label: "Email address", placeholder: "you@example.com" },
+      phone: { label: "Phone (optional)", placeholder: "+91 xxxxx xxxxx" },
+      experience: { label: "Experience level", placeholder: "Select your experience level", options: ["Entry level (0–2 years)", "Mid level (3–5 years)", "Senior (6+ years)", "Career switcher"] },
+      resumeUrl: { label: "Resume or portfolio link", placeholder: "https://" },
+      linkedinUrl: { label: "LinkedIn profile (optional)", placeholder: "https://linkedin.com/in/your-name" },
+      source: { label: "How did you hear about us? (optional)", placeholder: "Select an option", options: ["LinkedIn", "Instagram", "Job board", "Referral", "Other"] },
+      coverLetter: { label: "Why are you interested?", placeholder: "Tell us briefly about your experience and what interests you about this role." },
+      consent: "I agree that Vynox Media may use the information I submit to review my application and contact me about this role.",
+    },
+    submit: { idle: "Submit application", pending: "Sending application…" },
+    success: { title: "Application received", body: "Thank you for applying. We've sent a confirmation to your email address." },
+    errors: {
+      generic: "We couldn't send your application just now. Please try again shortly or email us directly.",
+      rateLimited: "Too many attempts. Please wait a few minutes before trying again.",
+      validation: "Please review the highlighted fields and try again.",
+      required: (label: string) => `${label} is required.`,
+      invalidEmail: "Enter a valid email address.",
+      invalidUrl: "Enter a complete http or https link.",
+      invalidOption: "Choose a valid option.",
+      consent: "Please confirm consent before submitting.",
+    },
+  },
+} as const;

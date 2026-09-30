@@ -1,0 +1,56 @@
+# dependencies
+/node_modules
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+.pnpm-debug.log*
+
+# env files
+.env*
+.env*.local
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# vscode
+.vscode/settings.json
+
+# env example
+!.env.example
+
+# playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+
+# visual-regression suite — local verification only. The specs and their PNG baselines are
+# machine-specific (they only match this renderer) and the full-page baseline alone is ~1.7MB.
+/tests/visual/
+
+# agent workflow scaffolding, not part of the deliverable
+/docs/superpowers/
+
+# git worktrees for isolated feature work
+/.worktrees/
+
+# graft's local graph cache — regenerable, not committed (run `graft build`).
+graft/

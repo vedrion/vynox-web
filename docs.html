@@ -1,0 +1,1575 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vynox Media Handbook</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400;500&display=swap">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+    }
+
+    main>.empty {
+      margin: 0;
+    }
+
+    img,
+    svg {
+      max-width: 100%;
+    }
+  </style>
+  <style>
+    :root {
+      --ground: #f7f6fa;
+      --surface: #ffffff;
+      --surface-2: #f1eff5;
+      --ink: #171520;
+      --ink-2: #4a4553;
+      --ink-3: #746e7e;
+      --rule: #e2dfe9;
+      --rule-2: #cfcad9;
+      --edit: #7b1fd4;
+      --edit-bg: #f3ebfd;
+      --config: #0d6d7e;
+      --config-bg: #e4f2f5;
+      --dev: #575e6d;
+      --dev-bg: #ecedf1;
+      --shadow: 0 1px 2px rgba(23, 21, 32, .05), 0 8px 24px -16px rgba(23, 21, 32, .22);
+
+      --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+      --body: "Source Serif 4", Georgia, "Times New Roman", serif;
+      --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --ground: #0b0a0b;
+        --surface: #141318;
+        --surface-2: #1b1922;
+        --ink: #ecebf0;
+        --ink-2: #b6b1c0;
+        --ink-3: #8b8595;
+        --rule: #292630;
+        --rule-2: #3a3644;
+        --edit: #b884ff;
+        --edit-bg: #241a35;
+        --config: #63c3d4;
+        --config-bg: #12262b;
+        --dev: #9aa1b1;
+        --dev-bg: #1e2029;
+        --shadow: 0 1px 2px rgba(0, 0, 0, .5), 0 8px 24px -16px rgba(0, 0, 0, .8);
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --ground: #0b0a0b;
+      --surface: #141318;
+      --surface-2: #1b1922;
+      --ink: #ecebf0;
+      --ink-2: #b6b1c0;
+      --ink-3: #8b8595;
+      --rule: #292630;
+      --rule-2: #3a3644;
+      --edit: #b884ff;
+      --edit-bg: #241a35;
+      --config: #63c3d4;
+      --config-bg: #12262b;
+      --dev: #9aa1b1;
+      --dev-bg: #1e2029;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .5), 0 8px 24px -16px rgba(0, 0, 0, .8);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--ground);
+      color: var(--ink);
+      font-family: var(--body);
+      font-size: 17px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 24px 96px;
+    }
+
+    /* ---- masthead ---- */
+
+    .masthead {
+      padding: 64px 0 28px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .kicker {
+      font-family: var(--display);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--edit);
+      margin: 0 0 14px;
+    }
+
+    h1 {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: clamp(2.1rem, 1.5rem + 2.4vw, 3.1rem);
+      line-height: 1.05;
+      letter-spacing: -.022em;
+      text-wrap: balance;
+      margin: 0 0 14px;
+    }
+
+    .standfirst {
+      max-width: 62ch;
+      font-size: 1.125rem;
+      color: var(--ink-2);
+      margin: 0;
+    }
+
+    /* ---- legend ---- */
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 28px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .legend li {
+      display: flex;
+      align-items: baseline;
+      gap: 9px;
+      flex: 1 1 240px;
+      background: var(--surface);
+      border: 1px solid var(--rule);
+      border-radius: 3px;
+      padding: 11px 13px;
+      font-size: .9375rem;
+      color: var(--ink-2);
+    }
+
+    .tag {
+      font-family: var(--display);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: 3px 7px;
+      border-radius: 2px;
+      white-space: nowrap;
+    }
+
+    .tag-edit {
+      color: var(--edit);
+      background: var(--edit-bg);
+    }
+
+    .tag-config {
+      color: var(--config);
+      background: var(--config-bg);
+    }
+
+    .tag-dev {
+      color: var(--dev);
+      background: var(--dev-bg);
+    }
+
+    /* ---- filter ---- */
+
+    .filterbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: var(--ground);
+      padding: 16px 0 14px;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 8px;
+    }
+
+    .filterbar input {
+      width: 100%;
+      font-family: var(--mono);
+      font-size: .875rem;
+      color: var(--ink);
+      background: var(--surface);
+      border: 1px solid var(--rule-2);
+      border-radius: 3px;
+      padding: 11px 14px;
+    }
+
+    .filterbar input::placeholder {
+      color: var(--ink-3);
+    }
+
+    .filterbar input:focus-visible {
+      outline: 2px solid var(--edit);
+      outline-offset: 1px;
+      border-color: transparent;
+    }
+
+    .filter-note {
+      font-family: var(--display);
+      font-size: 12px;
+      color: var(--ink-3);
+      margin: 8px 0 0;
+      min-height: 1em;
+    }
+
+    /* ---- shell ---- */
+
+    .shell {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      padding-top: 24px;
+    }
+
+    .rail {
+      display: none;
+    }
+
+    @media (min-width: 1000px) {
+      .shell {
+        grid-template-columns: 186px minmax(0, 1fr);
+        gap: 56px;
+      }
+
+      .rail {
+        display: block;
+      }
+    }
+
+    .rail nav {
+      position: sticky;
+      top: 92px;
+      padding: 4px 0;
+    }
+
+    .rail ol {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .rail a {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 8px;
+      align-items: baseline;
+      font-family: var(--display);
+      font-size: 13px;
+      line-height: 1.35;
+      text-decoration: none;
+      color: var(--ink-3);
+      padding: 6px 8px 6px 0;
+      border-left: 2px solid transparent;
+      padding-left: 10px;
+    }
+
+    .rail a:hover {
+      color: var(--ink);
+    }
+
+    .rail a .num {
+      font-variant-numeric: tabular-nums;
+      font-weight: 600;
+      color: var(--rule-2);
+    }
+
+    .rail a[aria-current="true"] {
+      color: var(--ink);
+      border-left-color: var(--edit);
+      font-weight: 600;
+    }
+
+    .rail a[aria-current="true"] .num {
+      color: var(--edit);
+    }
+
+    /* ---- sections ---- */
+
+    section {
+      padding-top: 20px;
+      scroll-margin-top: 92px;
+    }
+
+    section+section {
+      margin-top: 52px;
+    }
+
+    .sec-head {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+
+    .sec-num {
+      font-family: var(--display);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      color: var(--edit);
+      font-variant-numeric: tabular-nums;
+    }
+
+    h2 {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 1.4rem;
+      letter-spacing: -.014em;
+      margin: 0;
+      flex: 1;
+    }
+
+    h3 {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: -.008em;
+      margin: 30px 0 12px;
+    }
+
+    section>p,
+    .lede,
+    .note {
+      max-width: 68ch;
+    }
+
+    section>p {
+      color: var(--ink-2);
+      margin: 0 0 18px;
+    }
+
+    .note {
+      background: var(--surface-2);
+      border-left: 2px solid var(--rule-2);
+      padding: 12px 16px;
+      margin: 20px 0 0;
+      font-size: .9375rem;
+      color: var(--ink-2);
+    }
+
+    .note strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    /* ---- tables ---- */
+
+    .tablewrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .9375rem;
+    }
+
+    thead th {
+      font-family: var(--display);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      text-align: left;
+      padding: 0 12px 8px;
+      border-bottom: 1px solid var(--rule-2);
+      white-space: nowrap;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid var(--rule);
+    }
+
+    tbody tr:hover {
+      background: var(--surface);
+    }
+
+    tbody th,
+    tbody td {
+      text-align: left;
+      font-weight: 400;
+      padding: 11px 12px;
+      vertical-align: baseline;
+    }
+
+    tbody th {
+      border-left: 2px solid transparent;
+      padding-left: 12px;
+      white-space: nowrap;
+    }
+
+    tr[data-tier="edit"] th {
+      border-left-color: var(--edit);
+    }
+
+    tr[data-tier="config"] th {
+      border-left-color: var(--config);
+    }
+
+    tr[data-tier="dev"] th {
+      border-left-color: var(--rule-2);
+    }
+
+    td {
+      color: var(--ink-2);
+    }
+
+    code,
+    .path {
+      font-family: var(--mono);
+      font-size: .8125rem;
+      color: var(--ink);
+      background: var(--surface-2);
+      padding: 2px 5px;
+      border-radius: 2px;
+      white-space: nowrap;
+    }
+
+    td code {
+      color: var(--ink-2);
+    }
+
+    .dim {
+      color: var(--ink-3);
+    }
+
+    .warn {
+      color: var(--edit);
+      font-weight: 600;
+    }
+
+    /* ---- code block ---- */
+
+    pre {
+      font-family: var(--mono);
+      font-size: .8125rem;
+      line-height: 1.75;
+      background: var(--surface);
+      border: 1px solid var(--rule);
+      border-radius: 3px;
+      padding: 16px 18px;
+      overflow-x: auto;
+      margin: 0 0 18px;
+      color: var(--ink-2);
+    }
+
+    pre .c {
+      color: var(--ink-3);
+    }
+
+    pre .k {
+      color: var(--edit);
+    }
+
+    /* ---- prose lists ---- */
+
+    ul.plain {
+      max-width: 68ch;
+      margin: 0 0 18px;
+      padding-left: 20px;
+      color: var(--ink-2);
+    }
+
+    ul.plain li {
+      margin-bottom: 7px;
+    }
+
+    .empty {
+      display: none;
+      font-family: var(--display);
+      font-size: 14px;
+      color: var(--ink-3);
+      padding: 32px 0;
+    }
+
+    footer.colophon {
+      margin-top: 64px;
+      padding-top: 20px;
+      border-top: 1px solid var(--rule);
+      font-family: var(--display);
+      font-size: 12.5px;
+      color: var(--ink-3);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 20px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        scroll-behavior: auto !important;
+      }
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <header class="masthead">
+      <p class="kicker">Vynox Media · Site Maintenance</p>
+      <h1>Every file, and what it&rsquo;s for</h1>
+      <p class="standfirst">A map of the Vynox Media website. One line per file, grouped by what it does. Start with the
+        lookup table &mdash; most changes you&rsquo;ll ever need live in content files.</p>
+
+      <ul class="legend">
+        <li><span class="tag tag-edit">Edit</span> <span>Text, images, links, names. Safe to change.</span></li>
+        <li><span class="tag tag-config">Config</span> <span>Domain, email, brand colour. Change rarely.</span></li>
+        <li><span class="tag tag-dev">Dev</span> <span>Layout and behaviour.</span></li>
+      </ul>
+    </header>
+
+    <!-- <div class="filterbar">
+    <input id="q" type="search" placeholder="Filter by file name or purpose &mdash; try &ldquo;contact&rdquo;, &ldquo;image&rdquo;, &ldquo;seo&rdquo;" autocomplete="off" aria-label="Filter files">
+    <p class="filter-note" id="qnote"></p>
+  </div> -->
+
+    <div class="shell">
+
+      <aside class="rail">
+        <nav aria-label="Sections">
+          <ol>
+            <li><a href="#s1"><span class="num">01</span><span>Quick lookup</span></a></li>
+            <li><a href="#s2"><span class="num">02</span><span>Media specs</span></a></li>
+            <li><a href="#s3"><span class="num">03</span><span>Content</span></a></li>
+            <li><a href="#s4"><span class="num">04</span><span>Settings</span></a></li>
+            <li><a href="#s5"><span class="num">05</span><span>Pages &amp; routes</span></a></li>
+            <li><a href="#s6"><span class="num">06</span><span>Contact form</span></a></li>
+            <li><a href="#s7"><span class="num">07</span><span>Page sections</span></a></li>
+            <li><a href="#s8"><span class="num">08</span><span>Building blocks</span></a></li>
+            <li><a href="#s9"><span class="num">09</span><span>Assets</span></a></li>
+            <li><a href="#s10"><span class="num">10</span><span>Reference docs</span></a></li>
+            <li><a href="#s11"><span class="num">11</span><span>Running it</span></a></li>
+          </ol>
+        </nav>
+      </aside>
+
+      <main>
+
+        <p class="empty" id="empty">No files match that filter.</p>
+
+        <section id="s1">
+          <div class="sec-head"><span class="sec-num">01</span>
+            <h2>I want to change&hellip;</h2>
+          </div>
+          <p>The fastest route. Find the change on the left, open the file on the right.</p>
+          <div class="tablewrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Change</th>
+                  <th>File</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-tier="edit">
+                  <th>Any headline, paragraph or button label on the home page</th>
+                  <td><code>src/content/home.ts</code></td>
+                </tr>
+                <tr data-tier="edit">
+                  <th>A service page &mdash; all four</th>
+                  <td><code>src/content/services.ts</code></td>
+                </tr>
+                <tr data-tier="edit">
+                  <th>Case studies: list, stats, full write-ups</th>
+                  <td><code>src/content/case-studies.ts</code></td>
+                </tr>
+                <tr data-tier="edit">
+                  <th>Creator names, follower counts, tags</th>
+                  <td><code>src/content/creators.ts</code></td>
+                </tr>
+                <tr data-tier="edit">
+                  <th>Client quotes on the testimonials carousel</th>
+                  <td><code>src/content/testimonials.ts</code></td>
+                </tr>
+                <tr data-tier="edit">
+                  <th>About page headline and team members</th>
+                  <td><code>src/content/about.ts</code></td>
+                </tr>
+                <tr data-tier="edit">
+                  <th>Privacy Policy or Terms of Service wording</th>
+                  <td><code>src/content/legal.tsx</code></td>
+                </tr>
+                <tr data-tier="edit">
+                  <th>Contact page and form copy, dropdown options, email wording</th>
+                  <td><code>src/content/contact.ts</code></td>
+                </tr>
+                <tr data-tier="edit">
+                  <th>Careers page copy</th>
+                  <td><code>src/content/careers.ts</code></td>
+                </tr>
+                <tr data-tier="edit">
+                  <th>Navigation, footer, shared labels, route metadata</th>
+                  <td><code>src/content/site.ts</code></td>
+                </tr>
+                <tr data-tier="edit">
+                  <th>Service illustration and mock dashboard labels</th>
+                  <td><code>src/content/service-illustrations.ts</code></td>
+                </tr>
+                <tr data-tier="config">
+                  <th>Which image shows where</th>
+                  <td><code>src/config/assets.ts</code></td>
+                </tr>
+                <tr data-tier="config">
+                  <th>Where contact-form submissions get emailed</th>
+                  <td><code>.env</code></td>
+                </tr>
+                <tr data-tier="config">
+                  <th>Canonical domain</th>
+                  <td><code>src/config/site.ts</code></td>
+                </tr>
+                <tr data-tier="config">
+                  <th>Brand colours or fonts</th>
+                  <td><code>src/app/globals.css</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="s2">
+          <div class="sec-head"><span class="sec-num">02</span>
+            <h2>Media specs &mdash; export before you upload</h2>
+          </div>
+          <p>Every video and image on the site is exported to a fixed recipe. Match it and the page stays fast; ignore
+            it and one file can add seconds to the load.</p>
+
+          <h3>Video</h3>
+          <div class="tablewrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Setting</th>
+                  <th>Use</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-tier="edit">
+                  <th>Container</th>
+                  <td><code>.mp4</code></td>
+                </tr>
+                <tr data-tier="edit">
+                  <th>Codec</th>
+                  <td>H.264 &mdash; the one format every browser plays</td>
+                </tr>
+                <tr data-tier="edit">
+                  <th>Frame rate</th>
+                  <td>30&nbsp;fps</td>
+                </tr>
+                <tr data-tier="edit">
+                  <th>Resolution</th>
+                  <td>720p &mdash; <code>1280&times;720</code> landscape, <code>720&times;1280</code> for vertical reels
+                  </td>
+                </tr>
+                <tr data-tier="edit">
+                  <th>Audio</th>
+                  <td>None. Strip the track entirely &mdash; every video on the site plays muted</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Images</h3>
+          <div class="tablewrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Setting</th>
+                  <th>Use</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-tier="edit">
+                  <th>Format</th>
+                  <td><code>.avif</code> &mdash; same picture, a fraction of the file size</td>
+                </tr>
+                <tr data-tier="edit">
+                  <th>Resolution</th>
+                  <td>720p class &mdash; no wider than the slot the image sits in</td>
+                </tr>
+                <tr data-tier="edit">
+                  <th>File size</th>
+                  <td>Under roughly 300&nbsp;KB</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="note"><strong>Anything larger is wasted.</strong> The site never renders a reel above 720p, so a 4K
+            upload downloads in full and is then scaled down on the viewer&rsquo;s screen. Export to spec first, then
+            drop the file into <code>public/</code> and point the key in <code>src/config/assets.ts</code> at it.</p>
+        </section>
+
+        <section id="s3">
+          <div class="sec-head"><span class="sec-num">03</span>
+            <h2>Content &mdash; the files you&rsquo;ll actually edit</h2>
+          </div>
+          <p>All site copy lives here. Nothing in this folder controls layout, so you cannot break the design by editing
+            it.</p>
+          <div class="tablewrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>File</th>
+                  <th>Holds</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-tier="edit">
+                  <th><code>src/content/home.ts</code></th>
+                  <td>Every home-page section: hero, brands strip, video, services list, stats, &ldquo;sets
+                    apart&rdquo;, case-studies band, testimonials</td>
+                </tr>
+                <tr data-tier="edit">
+                  <th><code>src/content/services.ts</code></th>
+                  <td>All four service pages, keyed by URL slug &mdash; hero, problems, solutions, stats, closing CTA
+                  </td>
+                </tr>
+                <tr data-tier="edit">
+                  <th><code>src/content/case-studies.ts</code></th>
+                  <td>Featured cases, the full campaign grid, and the long-form detail page for each case</td>
+                </tr>
+                <tr data-tier="edit">
+                  <th><code>src/content/creators.ts</code></th>
+                  <td>Creator roster in the carousel &mdash; name, follower count, tags, photo key</td>
+                </tr>
+                <tr data-tier="edit">
+                  <th><code>src/content/testimonials.ts</code></th>
+                  <td>Client quotes, author names, roles, photo keys</td>
+                </tr>
+                <tr data-tier="edit">
+                  <th><code>src/content/about.ts</code></th>
+                  <td>About hero, the &ldquo;we shape them&rdquo; block, team member cards</td>
+                </tr>
+                <tr data-tier="edit">
+                  <th><code>src/content/legal.tsx</code></th>
+                  <td>Privacy Policy (10 sections) and Terms of Service (15 sections)</td>
+                </tr>
+                <tr data-tier="edit">
+                  <th><code>src/content/contact.ts</code></th>
+                  <td>Contact page copy, form labels, tab names, dropdown options, time slots, validation messages, and
+                    confirmation email wording</td>
+                </tr>
+                <tr data-tier="edit">
+                  <th><code>src/content/careers.ts</code></th>
+                  <td>Careers page copy, headings, and action labels</td>
+                </tr>
+                <tr data-tier="edit">
+                  <th><code>src/content/site.ts</code></th>
+                  <td>Navigation, footer, shared company contact details, page metadata, and not-found copy</td>
+                </tr>
+                <tr data-tier="edit">
+                  <th><code>src/content/service-illustrations.ts</code></th>
+                  <td>Text and labels displayed inside service page illustrations</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="note"><strong>When editing:</strong> keep the surrounding quotes and commas intact, don&rsquo;t
+            rename the keys to the left of a colon, and don&rsquo;t delete a field &mdash; empty it instead
+            (<code>""</code>).</p>
+        </section>
+
+        <section id="s4">
+          <div class="sec-head"><span class="sec-num">04</span>
+            <h2>Settings</h2>
+          </div>
+          <div class="tablewrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>File</th>
+                  <th>Purpose</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-tier="config">
+                  <th><code>src/config/site.ts</code></th>
+                  <td>Site name, live domain, meta description, Twitter handle, page list for the sitemap</td>
+                </tr>
+                <tr data-tier="config">
+                  <th><code>src/config/assets.ts</code></th>
+                  <td>Central map of every image and video path &mdash; swap an image here, not in a component</td>
+                </tr>
+                <tr data-tier="config">
+                  <th><code>src/config/fonts.ts</code></th>
+                  <td>Loads the five font families and exposes them as CSS variables</td>
+                </tr>
+                <tr data-tier="config">
+                  <th><code>.env</code></th>
+                  <td>Secrets: Resend API key, and the from / to addresses for contact-form email. Copy
+                    <code>.env.example</code> to start
+                  </td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>next.config.ts</code></th>
+                  <td>Framework config</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>tsconfig.json</code></th>
+                  <td>TypeScript settings and the <code>@/</code> import alias</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>eslint.config.mjs</code></th>
+                  <td>Code-style rules</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>playwright.config.ts</code></th>
+                  <td>Visual-regression test setup</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>package.json</code></th>
+                  <td>Dependencies and the <code>pnpm run</code> commands</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="s5">
+          <div class="sec-head"><span class="sec-num">05</span>
+            <h2>Pages and routes</h2>
+          </div>
+          <p>One folder per URL. Each <code>page.tsx</code> assembles sections and declares its own SEO title and
+            description.</p>
+          <div class="tablewrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>File</th>
+                  <th>URL</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-tier="dev">
+                  <th><code>src/app/layout.tsx</code></th>
+                  <td>Wraps every page &mdash; fonts, navbar, sitewide SEO defaults</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>src/app/page.tsx</code></th>
+                  <td><code>/</code> &mdash; home</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>src/app/about/page.tsx</code></th>
+                  <td><code>/about</code></td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>src/app/services/[slug]/page.tsx</code></th>
+                  <td><code>/services/&hellip;</code> &mdash; builds all four service pages from the content file</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>src/app/case-studies/page.tsx</code></th>
+                  <td><code>/case-studies</code> &mdash; index</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>src/app/case-studies/[id]/page.tsx</code></th>
+                  <td><code>/case-studies/&hellip;</code> &mdash; one page per case study</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>src/app/contact/page.tsx</code></th>
+                  <td><code>/contact</code></td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>src/app/careers/page.tsx</code></th>
+                  <td><code>/careers</code></td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>src/app/privacy-policy/page.tsx</code></th>
+                  <td><code>/privacy-policy</code></td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>src/app/terms-of-service/page.tsx</code></th>
+                  <td><code>/terms-of-service</code></td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>src/app/not-found.tsx</code></th>
+                  <td>404 page</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Generated automatically</h3>
+          <div class="tablewrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>File</th>
+                  <th>Produces</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-tier="dev">
+                  <th><code>src/app/sitemap.ts</code></th>
+                  <td><code>/sitemap.xml</code></td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>src/app/robots.ts</code></th>
+                  <td><code>/robots.txt</code></td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>src/app/opengraph-image.tsx</code></th>
+                  <td>The social-share preview card</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>src/app/favicon.ico</code></th>
+                  <td>Browser tab favicon</td>
+                </tr>
+                <tr data-tier="config">
+                  <th><code>src/app/globals.css</code></th>
+                  <td>Brand colours, fonts and spacing scale &mdash; all in the <code>@theme</code> block at the top
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="note"><strong>Adding a service or case study needs no new page.</strong> Add an entry to the content
+            file and the route builds itself on the next deploy.</p>
+        </section>
+
+        <section id="s6">
+          <div class="sec-head"><span class="sec-num">06</span>
+            <h2>Contact form</h2>
+          </div>
+          <p>A self-contained feature: form interface, validation and email delivery.</p>
+          <div class="tablewrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>File</th>
+                  <th>Does</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-tier="dev">
+                  <th><code>contact-page.tsx</code></th>
+                  <td>Assembles the whole contact page</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>contact-form.tsx</code></th>
+                  <td>The card &mdash; business / creator tab switch, submit button, success state</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>business-form.tsx</code></th>
+                  <td>Fields shown on the Business tab</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>creator-form.tsx</code></th>
+                  <td>Fields shown on the Creator tab</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>glass-input.tsx</code></th>
+                  <td>Styled text input</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>glass-textarea.tsx</code></th>
+                  <td>Styled multi-line input</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>glass-select.tsx</code></th>
+                  <td>Styled dropdown</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>option-list.tsx</code></th>
+                  <td>The dropdown&rsquo;s option panel</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>date-picker.tsx</code></th>
+                  <td>Calendar for booking a call</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>time-select.tsx</code></th>
+                  <td>Time-slot picker</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>schedule-row.tsx</code></th>
+                  <td>Date and time row</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>field-error.tsx</code></th>
+                  <td>Validation message under a field</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>success-panel.tsx</code></th>
+                  <td>The &ldquo;thanks, we&rsquo;ll be in touch&rdquo; panel</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>form-styles.ts</code></th>
+                  <td>Shared glass styling and animation settings</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>use-dismiss-on-outside.ts</code></th>
+                  <td>Closes dropdowns on an outside click</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>actions/submit-contact.ts</code></th>
+                  <td>Runs on submit &mdash; validates, rate-limits, emails</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>lib/schema.ts</code></th>
+                  <td>Validation rules for every field</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>lib/email.ts</code></th>
+                  <td>Builds and sends the email via Resend</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>lib/rate-limit.ts</code></th>
+                  <td>Blocks spam bursts from one address</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>lib/state.ts</code></th>
+                  <td>Success / error shape passed back to the form</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="note">All paths above sit under <code>src/features/contact/</code>. Components are in
+            <code>components/</code>.
+          </p>
+
+          <h3>Other features</h3>
+          <div class="tablewrap">
+            <table>
+              <tbody>
+                <tr data-tier="dev">
+                  <th><code>src/features/careers/components/careers-page.tsx</code></th>
+                  <td>The careers page</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>src/features/case-studies/components/case-study-detail.tsx</code></th>
+                  <td>The long-form case-study page, including animated counters</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="s7">
+          <div class="sec-head"><span class="sec-num">07</span>
+            <h2>Page sections</h2>
+          </div>
+          <p>Each file is one visual band on a page. They read their text from <code>src/content/</code>, so edit the
+            content file rather than these.</p>
+
+          <h3>Home <span class="dim path">src/components/sections/home/</span></h3>
+          <div class="tablewrap">
+            <table>
+              <tbody>
+                <tr data-tier="dev">
+                  <th><code>hero.tsx</code></th>
+                  <td>Top headline and reel wall</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>hero-reel-marquee.tsx</code></th>
+                  <td>Scrolling column of vertical reels</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>hero-reel-video.tsx</code></th>
+                  <td>One reel &mdash; plays only while on screen</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>brands.tsx</code></th>
+                  <td>&ldquo;Visionary brands&rdquo; logo strip</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>brand-marquee-row.tsx</code></th>
+                  <td>One scrolling row of logos</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>how-it-works.tsx</code></th>
+                  <td>Video card with the click-to-expand player</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>services.tsx</code></th>
+                  <td>Services grid</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>stats.tsx</code></th>
+                  <td>Big-number band</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>sets-apart.tsx</code></th>
+                  <td>&ldquo;What sets us apart&rdquo;</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>sets-apart-cards.tsx</code></th>
+                  <td>Its three cards</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>sets-apart-glow.tsx</code></th>
+                  <td>Its background glow</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>dot-grid.tsx</code></th>
+                  <td>Decorative dot pattern</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>creators.tsx</code></th>
+                  <td>Creator carousel</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>case-studies.tsx</code></th>
+                  <td>Featured case-study band, reused on service pages</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>testimonials.tsx</code></th>
+                  <td>Client-quote marquee</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>About <span class="dim path">src/components/sections/about/</span></h3>
+          <div class="tablewrap">
+            <table>
+              <tbody>
+                <tr data-tier="dev">
+                  <th><code>hero.tsx</code></th>
+                  <td>About page hero</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>hero-glow.tsx</code></th>
+                  <td>Its crescent glow</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>team.tsx</code></th>
+                  <td>Team member cards</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>we-shape-them.tsx</code></th>
+                  <td>&ldquo;We shape them&rdquo; block</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Service pages <span class="dim path">src/components/sections/service/</span></h3>
+          <div class="tablewrap">
+            <table>
+              <tbody>
+                <tr data-tier="dev">
+                  <th><code>hero.tsx</code></th>
+                  <td>Service hero</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>problems.tsx</code></th>
+                  <td>Second section, variant 1</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>solutions.tsx</code></th>
+                  <td>Second section, variant 2</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>momentum.tsx</code></th>
+                  <td>Second section, variant 3</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>what-creators-hold-back.tsx</code></th>
+                  <td>Second section, variant 4</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>how-vynox-solves.tsx</code></th>
+                  <td>Process diagram</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>stats.tsx</code></th>
+                  <td>Service stats band</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>top-right-orbit.tsx</code></th>
+                  <td>Orbital decoration</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>media/</code></th>
+                  <td>Floating creator-photo collages, one set per service</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="note">Which variant a service uses is set by <code>variantSection</code> in
+            <code>src/content/services.ts</code> &mdash; a content choice, not a code change.
+          </p>
+
+          <h3>Case studies, contact, legal</h3>
+          <div class="tablewrap">
+            <table>
+              <tbody>
+                <tr data-tier="dev">
+                  <th><code>sections/case-studies/hero.tsx</code></th>
+                  <td>Index page hero</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>sections/case-studies/all-campaigns-grid.tsx</code></th>
+                  <td>The full campaign grid</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>sections/contact/contact-hero.tsx</code></th>
+                  <td>Contact page heading</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>sections/contact/contact-info.tsx</code></th>
+                  <td>Email, phone, social links</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>sections/legal/legal-page.tsx</code></th>
+                  <td>Shared shell for both legal pages</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>sections/legal/legal-accordion.tsx</code></th>
+                  <td>Expandable clause sections</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="s8">
+          <div class="sec-head"><span class="sec-num">08</span>
+            <h2>Shared building blocks</h2>
+          </div>
+
+          <h3>Layout <span class="dim path">src/components/layout/</span></h3>
+          <div class="tablewrap">
+            <table>
+              <tbody>
+                <tr data-tier="dev">
+                  <th><code>navbar.tsx</code></th>
+                  <td>Floating nav pill with the services dropdown</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>site-footer.tsx</code></th>
+                  <td>Footer &mdash; full version, or compact on contact, careers and legal pages</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Cards <span class="dim path">src/components/cards/</span></h3>
+          <div class="tablewrap">
+            <table>
+              <tbody>
+                <tr data-tier="dev">
+                  <th><code>case-study-card.tsx</code></th>
+                  <td>Campaign tile</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>creator-card.tsx</code></th>
+                  <td>Creator tile with follower count and tags</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>testimonial-card.tsx</code></th>
+                  <td>Quote card</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>feature-card.tsx</code></th>
+                  <td>Generic feature tile</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Interface primitives <span class="dim path">src/components/ui/</span></h3>
+          <div class="tablewrap">
+            <table>
+              <tbody>
+                <tr data-tier="dev">
+                  <th><code>shell.tsx</code></th>
+                  <td>Centres content in the 1200px column</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>section.tsx</code></th>
+                  <td>Standard vertical spacing plus optional glow</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>section-heading.tsx</code></th>
+                  <td>The signature heading: bold text, purple underline, script accent word</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>button.tsx</code></th>
+                  <td>All button styles</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>eyebrow-badge.tsx</code></th>
+                  <td>Small pill label above a heading</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>stat.tsx</code></th>
+                  <td>One number-and-label pair</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>tag-chip.tsx</code></th>
+                  <td>Small rounded tag</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>sticker.tsx</code></th>
+                  <td>Rotated handwritten &ldquo;Let&rsquo;s Talk&rdquo; sticker</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>glow.tsx</code></th>
+                  <td>Purple background glows</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>grain-texture.tsx</code></th>
+                  <td>Film-grain overlay</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>media-placeholder.tsx</code></th>
+                  <td>Grey box where an image is missing</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>web-threads.tsx</code></th>
+                  <td>Animated thread background behind the video</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Helpers <span class="dim path">src/lib/</span></h3>
+          <div class="tablewrap">
+            <table>
+              <tbody>
+                <tr data-tier="dev">
+                  <th><code>cn.ts</code></th>
+                  <td>Merges CSS classes safely</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>fluid.ts</code></th>
+                  <td>Sizes that scale smoothly with screen width</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>motion.ts</code></th>
+                  <td>Shared animation easings</td>
+                </tr>
+                <tr data-tier="dev">
+                  <th><code>glow-presets.ts</code></th>
+                  <td>Reusable glow settings</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="s9">
+          <div class="sec-head"><span class="sec-num">09</span>
+            <h2>Assets</h2>
+          </div>
+          <p>Files in <code>public/</code> are served directly. They are referenced through
+            <code>src/config/assets.ts</code>, never by a hard-coded path in a component.
+          </p>
+          <div class="tablewrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Folder</th>
+                  <th>Holds</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-tier="edit">
+                  <th><code>public/images/navbar/</code></th>
+                  <td>Logo</td>
+                </tr>
+                <tr data-tier="edit">
+                  <th><code>public/images/brands/</code></th>
+                  <td>Eleven client logos for the strip</td>
+                </tr>
+                <tr data-tier="edit">
+                  <th><code>public/images/home/</code></th>
+                  <td>Home-page imagery &mdash; <code>cases/</code>, <code>creators/</code>, <code>testimonials/</code>
+                  </td>
+                </tr>
+                <tr data-tier="edit">
+                  <th><code>public/images/about/</code></th>
+                  <td>About hero glow and <code>cardFigures/</code> team photos</td>
+                </tr>
+                <tr data-tier="edit">
+                  <th><code>public/images/services/</code></th>
+                  <td>Service-page hero images</td>
+                </tr>
+                <tr data-tier="edit">
+                  <th><code>public/images/contact/</code></th>
+                  <td>Contact map image and video</td>
+                </tr>
+                <tr data-tier="edit">
+                  <th><code>public/svg/</code></th>
+                  <td>Decorative SVGs &mdash; underlines, arrows</td>
+                </tr>
+                <tr data-tier="edit">
+                  <th><code>public/videos/home/</code></th>
+                  <td>Twelve vertical reels for the hero wall</td>
+                </tr>
+                <tr data-tier="edit">
+                  <th><code>public/videos/mainvideo/</code></th>
+                  <td>The main showreel</td>
+                </tr>
+                <tr data-tier="config">
+                  <th><code>public/fonts/</code></th>
+                  <td>Licensed font files</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="note"><strong>Replacing an image:</strong> drop the new file into the same folder, then point the
+            matching key in <code>src/config/assets.ts</code> at it. Keep new images under roughly 300&nbsp;KB &mdash;
+            oversized files are the single most common cause of a slow page.</p>
+        </section>
+
+        <section id="s10">
+          <div class="sec-head"><span class="sec-num">10</span>
+            <h2>Reference docs</h2>
+          </div>
+          <div class="tablewrap">
+            <table>
+              <tbody>
+                <tr data-tier="config">
+                  <th><code>docs/design-analysis.md</code></th>
+                  <td>The full pixel spec &mdash; every measurement, colour and font role taken from Figma</td>
+                </tr>
+                <tr data-tier="config">
+                  <th><code>docs/design-reference/*.png</code></th>
+                  <td>Screenshots of what each page must match</td>
+                </tr>
+                <tr data-tier="config">
+                  <th><code>docs/TODO.md</code></th>
+                  <td>Known gaps and deliberate trade-offs</td>
+                </tr>
+                <tr data-tier="config">
+                  <th><code>docs/PROJECT-GUIDE.md</code></th>
+                  <td>The written version of this page</td>
+                </tr>
+                <tr data-tier="config">
+                  <th><code>README.md</code></th>
+                  <td>Setup, commands, structure at a glance</td>
+                </tr>
+                <tr data-tier="config">
+                  <th><code>CLAUDE.md</code></th>
+                  <td>Coding rules for anyone working in the repository</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="s11">
+          <div class="sec-head"><span class="sec-num">11</span>
+            <h2>Running it</h2>
+          </div>
+          <pre><span class="k">pnpm</span> install          <span class="c"># once</span>
+<span class="k">cp</span> .env.example .env <span class="c"># then fill in the Resend key</span>
+<span class="k">pnpm</span> dev          <span class="c"># http://localhost:3000</span></pre>
+          <p>Before publishing, both of these must pass:</p>
+          <pre><span class="k">pnpm</span> typecheck
+<span class="k">pnpm</span> build</pre>
+          <p>The site is fully static &mdash; every page is pre-rendered at build time, so it loads fast and reads
+            cleanly to search engines. New services and case studies are picked up automatically on the next build.</p>
+        </section>
+
+        <footer class="colophon">
+          <span>Vynox Media</span>
+          <span>Next.js 16 &middot; React 19 &middot; TypeScript 6 &middot; Tailwind v4</span>
+        </footer>
+
+      </main>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var q = document.getElementById("q");
+      var note = document.getElementById("qnote");
+      var empty = document.getElementById("empty");
+      var sections = Array.prototype.slice.call(document.querySelectorAll("main section"));
+      var rows = Array.prototype.slice.call(document.querySelectorAll("main tbody tr"));
+
+      function filter() {
+        var term = q.value.trim().toLowerCase();
+        if (!term) {
+          rows.forEach(function (r) { r.style.display = ""; });
+          sections.forEach(function (s) { s.style.display = ""; });
+          document.querySelectorAll("main h3, main .note, main .tablewrap").forEach(function (el) { el.style.display = ""; });
+          note.textContent = "";
+          empty.style.display = "none";
+          return;
+        }
+
+        var hits = 0;
+        rows.forEach(function (r) {
+          var match = r.textContent.toLowerCase().indexOf(term) !== -1;
+          r.style.display = match ? "" : "none";
+          if (match) hits++;
+        });
+
+        document.querySelectorAll("main .tablewrap").forEach(function (w) {
+          var any = Array.prototype.some.call(w.querySelectorAll("tbody tr"), function (r) {
+            return r.style.display !== "none";
+          });
+          w.style.display = any ? "" : "none";
+          var h3 = w.previousElementSibling;
+          if (h3 && h3.tagName === "H3") h3.style.display = any ? "" : "none";
+        });
+
+        document.querySelectorAll("main .note").forEach(function (n) { n.style.display = "none"; });
+
+        sections.forEach(function (s) {
+          var any = Array.prototype.some.call(s.querySelectorAll("tbody tr"), function (r) {
+            return r.style.display !== "none";
+          });
+          s.style.display = any ? "" : "none";
+        });
+
+        note.textContent = hits + (hits === 1 ? " file matches" : " files match");
+        empty.style.display = hits ? "none" : "block";
+      }
+
+      q.addEventListener("input", filter);
+
+      var links = Array.prototype.slice.call(document.querySelectorAll(".rail a"));
+      if ("IntersectionObserver" in window) {
+        var obs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (!e.isIntersecting) return;
+            links.forEach(function (a) {
+              a.setAttribute("aria-current", a.getAttribute("href") === "#" + e.target.id ? "true" : "false");
+            });
+          });
+        }, { rootMargin: "-90px 0px -70% 0px" });
+        sections.forEach(function (s) { obs.observe(s); });
+      }
+    })();
+  </script>
+
+</body>
+
+</html>
