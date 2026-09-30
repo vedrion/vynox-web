@@ -11,6 +11,7 @@ import { GlassInput } from "@/features/contact/components/glass-input";
 import { GlassSelect } from "@/features/contact/components/glass-select";
 import { GlassTextarea } from "@/features/contact/components/glass-textarea";
 import { FieldError } from "@/features/contact/components/field-error";
+import { SuccessPanel } from "@/features/contact/components/success-panel";
 
 const buttonVariants = {
   initial: { opacity: 0, y: 8 },
@@ -28,10 +29,10 @@ export function CareerApplicationForm({ selectedRole }: { selectedRole: string }
 
   if (state.status === "success") {
     return (
-      <div role="status" className="rounded-[12px] border border-emerald-300/25 bg-emerald-300/[0.06] p-6">
-        <h3 className="font-['Space_Grotesk',sans-serif] text-xl text-white">{careersContent.form.success.title}</h3>
-        <p className="mt-2 text-sm font-light leading-6 text-body-secondary">{careersContent.form.success.body}</p>
-      </div>
+      <SuccessPanel
+        title={careersContent.form.success.title}
+        body={careersContent.form.success.body}
+      />
     );
   }
 
