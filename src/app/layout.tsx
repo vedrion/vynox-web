@@ -5,6 +5,7 @@ import { fontVars } from "@/config/fonts";
 import { siteConfig } from "@/config/site";
 import "./globals.css";
 import NextTopLoader from "nextjs-toploader";
+import { GoogleTagManager } from "@next/third-parties/google";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -52,6 +53,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={fontVars} data-scroll-behavior="smooth">
+      <GoogleTagManager gtmId="G-K5X2LX6GG5" />
       <body className="bg-bg text-white font-inter antialiased">
         <Navbar />
         <main><NextTopLoader />{children}</main>
