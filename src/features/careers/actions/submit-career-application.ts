@@ -62,9 +62,9 @@ export async function submitCareerApplication(_previous: CareerApplicationState,
     if (sent.error) throw new Error(sent.error.message);
     const confirmation = await resend.emails.send({
       from, to: parsed.data.email, replyTo: to,
-      subject: "We received your application — Vynox Media",
-      text: `Hi ${parsed.data.fullName},\n\nThank you for applying to ${careerRoles.find((role) => role.id === parsed.data.role)?.title}. We have received your application and will contact you if there is a fit.\n\n— Vynox Media`,
-      html: `<p>Hi ${escapeHtml(parsed.data.fullName)},</p><p>Thank you for applying to ${escapeHtml(careerRoles.find((role) => role.id === parsed.data.role)?.title ?? "a role")} at Vynox Media. We have received your application and will contact you if there is a fit.</p><p>— Vynox Media</p>`,
+      subject: "We received your application - Vynox Media",
+      text: `Hi ${parsed.data.fullName},\n\nThank you for applying to ${careerRoles.find((role) => role.id === parsed.data.role)?.title}. We have received your application and will contact you if there is a fit.\n\n- Vynox Media`,
+      html: `<p>Hi ${escapeHtml(parsed.data.fullName)},</p><p>Thank you for applying to ${escapeHtml(careerRoles.find((role) => role.id === parsed.data.role)?.title ?? "a role")} at Vynox Media. We have received your application and will contact you if there is a fit.</p><p>- Vynox Media</p>`,
     });
     if (confirmation.error) throw new Error(confirmation.error.message);
     return { status: "success", id: crypto.randomUUID() };

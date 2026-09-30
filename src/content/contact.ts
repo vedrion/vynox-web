@@ -108,10 +108,10 @@ export const contactEmailContent = {
     scheduleHeading: "Requested meeting slot",
   },
   autoReply: {
-    subject: "We got your message — Vynox Media",
+    subject: "We got your message - Vynox Media",
     heading: "Thanks for reaching out",
     body: "We've received your enquiry and the team is already looking at it. Expect a reply within one business day.",
-    signOff: "— Team Vynox Media",
+    signOff: "- Team Vynox Media",
     summaryHeading: "What you sent us",
   },
 };
