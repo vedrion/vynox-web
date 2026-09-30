@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence, useInView } from "motion/react";
 import { Play, X } from "lucide-react";
 
@@ -47,20 +48,30 @@ export function HowItWorks() {
   }, [isInView, isModalOpen]);
 
   useEffect(() => {
+    if (!isModalOpen) return;
+
+    const body = document.body;
+    const root = document.documentElement;
+    const previousBodyOverflow = body.style.overflow;
+    const previousRootOverflow = root.style.overflow;
+    const previousRootOverscrollBehavior = root.style.overscrollBehavior;
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setIsModalOpen(false);
       }
     };
 
-    if (isModalOpen) {
-      window.addEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "hidden";
-    }
+    window.addEventListener("keydown", handleKeyDown);
+    body.style.overflow = "hidden";
+    root.style.overflow = "hidden";
+    root.style.overscrollBehavior = "none";
 
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "";
+      body.style.overflow = previousBodyOverflow;
+      root.style.overflow = previousRootOverflow;
+      root.style.overscrollBehavior = previousRootOverscrollBehavior;
     };
   }, [isModalOpen]);
 
@@ -156,46 +167,50 @@ export function HowItWorks() {
         </div>
       </div>
 
-      <AnimatePresence>
-        {isModalOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-xl p-4 md:p-10"
-            onClick={() => setIsModalOpen(false)}
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0, y: 24 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.9, opacity: 0, y: 24 }}
-              transition={{ duration: 0.4, ease: EASE }}
-              className="relative w-full max-w-5xl rounded-[24px] overflow-hidden border border-white/15 bg-black shadow-[0_25px_70px_-15px_rgb(var(--color-glow-primary-rgb)/0.6)]"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                type="button"
+      {typeof document !== "undefined" &&
+        createPortal(
+          <AnimatePresence>
+            {isModalOpen && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 backdrop-blur-xl p-4 md:p-10"
                 onClick={() => setIsModalOpen(false)}
-                className="absolute top-4 right-4 z-20 flex size-10 items-center justify-center rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white/90 transition-all hover:bg-black/90 hover:scale-110 hover:text-white"
-                aria-label={videoContent.closeAriaLabel}
               >
-                <X size={20} />
-              </button>
+                <motion.div
+                  initial={{ scale: 0.9, opacity: 0, y: 24 }}
+                  animate={{ scale: 1, opacity: 1, y: 0 }}
+                  exit={{ scale: 0.9, opacity: 0, y: 24 }}
+                  transition={{ duration: 0.4, ease: EASE }}
+                  className="relative w-full max-w-5xl rounded-[24px] overflow-hidden border border-white/15 bg-black shadow-[0_25px_70px_-15px_rgb(var(--color-glow-primary-rgb)/0.6)]"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <button
+                    type="button"
+                    onClick={() => setIsModalOpen(false)}
+                    className="absolute top-4 right-4 z-20 flex size-10 items-center justify-center rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white/90 transition-all hover:bg-black/90 hover:scale-110 hover:text-white"
+                    aria-label={videoContent.closeAriaLabel}
+                  >
+                    <X size={20} />
+                  </button>
 
-              <div className="relative aspect-video w-full bg-black">
-                <video
-                  src={ASSETS.home.howItWorksVideo}
-                  autoPlay
-                  controls
-                  playsInline
-                  className="size-full object-contain rounded-[24px]"
-                />
-              </div>
-            </motion.div>
-          </motion.div>
+                  <div className="relative aspect-video w-full bg-black">
+                    <video
+                      src={ASSETS.home.howItWorksVideo}
+                      autoPlay
+                      controls
+                      playsInline
+                      className="size-full object-contain rounded-[24px]"
+                    />
+                  </div>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>,
+          document.body,
         )}
-      </AnimatePresence>
     </Section>
   );
 }
